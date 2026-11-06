@@ -1,6 +1,6 @@
 # DevSecOps Delivery & Verified Rollback
 
-**Build once, inspect the selected artifact, promote the same bytes.**
+**Release the tested files and keep a verified previous version ready if something goes wrong.**
 
 [The problem](#the-business-problem) · [The solution](#the-solution) · [What was built](#what-was-built) · [Proof it works](#proof-it-works) · [Run it](#run-it-locally)
 
@@ -8,26 +8,22 @@
 
 ## The Business Problem
 
-An operational application had several deployment targets and security scanners. A green build alone did not establish which source, package and container digest would reach production or what could be restored after a bad release.
-
-1. **Different bytes at release time.** Rebuilding during promotion can produce a different package from the one that passed testing.
-2. **Security reports without a binding.** A report is not useful release evidence if it belongs to another source, artifact or expired policy window.
-3. **Recovery by guesswork.** A previous branch is not the same thing as a retained, verified rollback package.
+A green build did not show exactly which application package or container would reach production. Rebuilding during release could change the files, and an old branch was not a dependable recovery package. Security reports also needed to match the version being released.
 
 ## The Solution
 
-Build once, retain the package with its source and digest, check the selected evidence before promotion, and restore a verified prior artifact when recovery is needed. Keep registry publishing trust separate from application runtime access.
+Build once, keep the tested package and its fingerprint, and check the matching security results before release. Save a verified previous package for rollback, which means returning to an earlier release. Keep permission to publish packages separate from the application’s own access.
 
-**Business goal:** Make releases traceable and recovery deliberate, with fewer rebuild differences and clear failure evidence before publication.
+**Business outcome:** Make releases traceable and recovery deliberate, with fewer differences between the tested package and the released one.
 
 ### Platform implementation
 
-- Built API/web artifact archives, exact-hash preflights and paired promotion so production used the verified packages instead of a new build.
+- Built API/web saved release packages, exact-hash readiness checks and paired promotion so production used the verified packages instead of a new build.
 - Added release and rollback checks for exact selected source, retained artifacts, settings preservation and cleanup of temporary release infrastructure.
 - Integrated dependency, container, IaC and secret scanning with dated findings, package inventories and remediation evidence; separated report generation from release authorization.
-- Patched vulnerable dependencies using compatible versions and consumer regression tests, retaining unresolved findings rather than claiming a clean estate.
+- Patched vulnerable dependencies using compatible versions and tests that existing callers still work, retaining unresolved findings rather than claiming a clean estate.
 
-This case study draws on a workforce/operations platform I designed and implemented. Organization details and records are excluded. The public code makes selected patterns reproducible; the screenshots show a working local demonstration with fictional data. [Validation scope](docs/VALIDATION.md) separates that evidence from provider-side acceptance.
+This case study draws on a workforce/operations platform I designed and implemented. Organization details and records are excluded. The public code makes selected patterns reproducible; the screenshots show a working local demonstration with fictional data. [Validation scope](docs/VALIDATION.md) separates that evidence from testing against the actual cloud service.
 
 ### Actual implementation code
 
@@ -56,7 +52,7 @@ flowchart LR
 | Deterministic package builder | Sort paths and fix ZIP metadata so identical inputs produce identical bytes. | [View code](lab/domain.py) |
 | Selected-artifact policy gate | Reject modified bytes, wrong-source evidence, incomplete scans and blocking findings. | [View code](lab/domain.py) |
 | Content-addressed release archive | Retain packages and change a small atomic release pointer instead of rebuilding. | [View code](lab/domain.py) |
-| ACR and repository-scoped publisher | Keep registry admin credentials Off and scope optional OIDC publishing to one repository. | [View code](infra/registry.tf) |
+| ACR and repository-specific publisher | Keep registry admin credentials Off and scope optional OIDC publishing to one repository. | [View code](infra/registry.tf) |
 | Private artifact storage | Use keyless, versioned archive storage with deletion protection. | [View code](infra/storage.tf) |
 | Container example | Run the local demonstration as non-root in a digest-pinned Python image. | [View code](Dockerfile) |
 
@@ -71,7 +67,7 @@ python -B -m unittest discover -s reference -v
 The selected original tests run offline. [Validation](docs/VALIDATION.md) records current counts and distinguishes them from historical hosted evidence.
 
 
-**Current local checks:** 12 extracted-source tests + 12 portable tests passed · 6 demonstration checks · 2 Terraform mock tests.
+**Current local checks:** 12 extracted-source tests + 12 portable tests passed · 6 demonstration checks · 2 Terraform tests using simulated cloud responses.
 
 These are dated results for this reference implementation, not live Azure/AWS deployment claims. [Test record](docs/validation-results.json) · [Evidence and limitations](docs/VALIDATION.md)
 
@@ -85,7 +81,7 @@ Run from the repository root:
 python -B -m unittest discover -s tests -p test_domain.py -v
 ```
 
-**What to look for:** The package tests reject changed bytes, wrong source, stale evidence and incomplete/blocked scans.
+**What to look for:** The package tests reject changed bytes, wrong source, out-of-date evidence and incomplete/blocked scans.
 
 ### 2. Rollback uses the retained prior package
 
@@ -122,7 +118,7 @@ Expected access denials are successful negative tests. Cloud permissions, networ
 
 ## Security Practices
 
-- The local policy receipt is synthetic. A real release needs independently trusted scanner evidence and source-to-artifact binding.
+- The local policy receipt is test-only. A real release needs independently trusted scanner evidence and source-to-artifact binding.
 - ACR admin credentials and storage shared keys are Off. The optional publisher uses an exact reviewed OIDC subject and repository ABAC condition.
 - Trivy, Checkov, TruffleHog and ZAP have different coverage. Remaining findings stay visible; a digest or green build alone does not establish safety.
 
@@ -147,7 +143,7 @@ On Windows, use `.venv\Scripts\Activate.ps1` instead of the `source` command, or
 
 ## Terraform Infrastructure
 
-A shared-style ACR registry, keyless private release-archive storage with version protection, and an opt-in repository-scoped OIDC publisher.
+A shared-style ACR registry, keyless private release-archive storage with version protection, and an opt-in repository-specific OIDC publisher.
 
 See the [Terraform code and validation steps](infra/README.md), [input example](infra/example.tfvars.example) and [mock plan tests](infra/tests). Cloud commissioning and any paid resources remain separate from the local demonstration.
 
@@ -174,7 +170,7 @@ See [strengths, weaknesses and tradeoffs](docs/SCALING.md) for the detailed deci
 - GitHub Actions and artifact promotion
 - Container packaging and runtime restrictions
 - Vulnerability/secret/IaC scan integration
-- OIDC and repository-scoped publishing
+- OIDC and repository-specific publishing
 - Verified rollback and release traceability
 
 ## Project Guides

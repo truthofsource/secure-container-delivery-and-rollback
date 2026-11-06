@@ -1,6 +1,6 @@
 # Terraform infrastructure
 
-A shared-style ACR registry, keyless private release-archive storage with version protection, and an opt-in repository-scoped OIDC publisher.
+A shared-style ACR registry, keyless private release-archive storage with version protection, and an opt-in repository-specific OIDC publisher.
 
 These configurations adapt the same resource boundaries used in the author's workforce/operations platform. Names and input examples are neutral; no environment state, backend, import block, secret or production identifier is included. Each folder is a standalone reference root, not a command to adopt an existing production resource into new state.
 
@@ -44,7 +44,7 @@ Mock-test cleanup is entirely local. A real destroy is a separate reviewed actio
 
 ## Strengths and tradeoffs
 
-Repository-scoped permissions are narrower than registry-wide push grants but require the correct ABAC registry mode and exact trust. Versioned archives support recovery; they are not legal-hold/WORM immutability. AzureRM 4.81.0 is pinned here because it supports the registry mode used by the source platform; the networking root uses its own reviewed version.
+Repository-permissions limited to the required resources are narrower than registry-wide push grants but require the correct ABAC registry mode and exact trust. Versioned archives support recovery; they are not legal-hold/WORM immutability. AzureRM 4.81.0 is pinned here because it supports the registry mode used by the source platform; the networking root uses its own reviewed version.
 
 ## Resource inventory
 

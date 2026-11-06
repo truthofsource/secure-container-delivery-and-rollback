@@ -1,13 +1,15 @@
 # Architecture and implementation boundaries
 
+**Terms used here:** A digest is a file or container fingerprint used to confirm the exact version. An artifact is a file produced for a release, such as an application ZIP or container image.
+
 ## Source-platform context
 
 An operational application had several deployment targets and security scanners. A green build alone did not establish which source, package and container digest would reach production or what could be restored after a bad release.
 
-- Built API/web artifact archives, exact-hash preflights and paired promotion so production used the verified packages instead of a new build.
+- Built API/web saved release packages, exact-hash readiness checks and paired promotion so production used the verified packages instead of a new build.
 - Added release and rollback checks for exact selected source, retained artifacts, settings preservation and cleanup of temporary release infrastructure.
 - Integrated dependency, container, IaC and secret scanning with dated findings, package inventories and remediation evidence; separated report generation from release authorization.
-- Patched vulnerable dependencies using compatible versions and consumer regression tests, retaining unresolved findings rather than claiming a clean estate.
+- Patched vulnerable dependencies using compatible versions and tests that existing callers still work, retaining unresolved findings rather than claiming a clean estate.
 
 ## Processing path
 
@@ -44,7 +46,7 @@ Review the caller matrix, identity permissions, durable state, concurrency, log 
 
 ## Included Terraform
 
-A shared-style ACR registry, keyless private release-archive storage with version protection, and an opt-in repository-scoped OIDC publisher. See [the code map, resource inventory and integration boundaries](../infra/README.md). This public root does not provision every box in the application diagram.
+A shared-style ACR registry, keyless private release-archive storage with version protection, and an opt-in repository-specific OIDC publisher. See [the code map, resource inventory and integration boundaries](../infra/README.md). This public root does not provision every box in the application diagram.
 
 ## Implementation evidence
 

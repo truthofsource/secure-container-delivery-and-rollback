@@ -1,5 +1,7 @@
 # Source map and deliberate adaptations
 
+**Terms used here:** A fixture is test data or a test setup used instead of real business records.
+
 The selected implementation was reviewed November 6, 2026. Hashes identify private source inputs without publishing that private repository or its history. Example identities and labels preserve comparisons, not live authorization.
 
 | Public file | Original implementation area | Adaptation |
@@ -11,4 +13,4 @@ The retained source tests replace one private ledger-file lookup with an explici
 
 [Machine source hashes](source-map.json) · [Validation and limits](VALIDATION.md)
 
-Related Terraform/reference provenance is recorded separately in the machine map. Parameterized/portable roots retain their own integration boundaries; they are not identical copies of the full deployed infrastructure.
+The source map records where the Terraform and other reference files came from. The reusable examples still need their own connection tests and are not complete copies of the deployed setup.

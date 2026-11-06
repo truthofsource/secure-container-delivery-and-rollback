@@ -1,14 +1,16 @@
 # Implementation walkthrough
 
+**Terms used here:** A digest is a file or container fingerprint used to confirm the exact version. An artifact is a file produced for a release, such as an application ZIP or container image.
+
 An operational application had several deployment targets and security scanners. A green build alone did not establish which source, package and container digest would reach production or what could be restored after a bad release.
 
 ## 1. Build the package
 
-Run the local demo to create deterministic synthetic ZIPs. Fixed timestamps and sorted entries allow identical inputs to produce identical bytes.
+Run the local demo to create deterministic test-only ZIPs. Fixed timestamps and sorted entries allow identical inputs to produce identical bytes.
 
 ## 2. Exercise the policy gate
 
-The gate binds a receipt to source and SHA-256. Modified bytes, stale evidence, partial scans and blocking dependency findings fail before the local pointer changes.
+The gate binds a receipt to source and SHA-256. Modified bytes, out-of-date evidence, partial scans and blocking dependency findings fail before the local pointer changes.
 
 ## 3. Promote and recover
 

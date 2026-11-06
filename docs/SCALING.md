@@ -1,17 +1,19 @@
 # Scaling, strengths and tradeoffs
 
+**Terms used here:** A digest is a file or container fingerprint used to confirm the exact version. An artifact is a file produced for a release, such as an application ZIP or container image.
+
 ## When the workload grows
 
-Separate build, scan, select and publish jobs with least-privilege identities. Use reusable workflows and dependency caching without sharing secrets across trust boundaries. Retain several verified rollback pairs and protect referenced images from registry purge. Scope scans to owned inputs, but run periodic full inventory checks. At larger scale use signed attestations, verified trusted workflow identity, an artifact registry and an independently enforced deployment gate.
+Separate build, scan, select and publish jobs with minimum-permission identities. Use reusable workflows and dependency caching without sharing secrets across trust boundaries. Retain several verified rollback pairs and protect referenced images from registry purge. Scope scans to owned inputs, but run periodic full inventory checks. At larger scale use signed attestations, verified trusted workflow identity, an artifact registry and an independently enforced deployment gate.
 
 ## Design choices
 
 | Choice | Strength, weakness and tradeoff |
 | --- | --- |
-| Build once / promote unchanged | Reduces environmental rebuild differences. Requires trustworthy artifact retention and source-to-package evidence. |
+| Build once / promote unchanged | Reduces environmental rebuild differences. Requires trustworthy how long release files are kept and source-to-package evidence. |
 | Strict release gate | Stops missing or blocking evidence early. Policy freshness and emergency recovery need documented procedures. |
 | Digest-pinned containers | Makes selection immutable. A digest does not prove the image is safe, signed or built by the expected workflow. |
-| Broad scanning | Finds different defect classes. Coverage overlaps and false positives require triage, ownership and expiry dates rather than blanket exclusions. |
+| Broad scanning | Finds different defect classes. Coverage overlaps and false positives require review and prioritization, ownership and expiry dates rather than blanket exclusions. |
 
 ## Operating measures
 
