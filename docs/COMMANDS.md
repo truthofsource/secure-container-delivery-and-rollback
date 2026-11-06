@@ -122,3 +122,11 @@ git diff --check
 ```
 
 Inspect owned local files before cleanup. `.venv`, `.local`, provider caches, state and saved plans are excluded from commits. Do not remove another checkout's files, paste credentials into a command block or run a real cloud apply just to reproduce a screenshot.
+
+## Extracted implementation checks
+
+```bash
+python -B -m unittest discover -s reference -v
+```
+
+These run original selected implementation tests with the adaptations listed in [SOURCE-MAP](SOURCE-MAP.md). No cloud operations are performed.

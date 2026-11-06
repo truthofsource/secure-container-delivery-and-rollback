@@ -12,9 +12,10 @@
     "Restore a verified prior release if needed"
   ],
   "notes": [
+    "Actual platform source and original offline tests are included under reference/; see implementation and source-map guides.",
     "The local receipt is a trusted test fixture, not a signed scanner attestation.",
     "This reference proves artifact/policy mechanics locally. Azure publication and original-build image provenance require separate acceptance.",
     "Source findings, container findings and live configuration findings are tracked separately; remaining findings are not silently suppressed."
   ],
-  "boundary": "Engineering patterns from an operational platform; this screen shows local code with fictional records."
+  "boundary": "Platform-derived local demonstration with fictional data; extracted source/tests are separately reproducible. No fresh cloud acceptance."
 }

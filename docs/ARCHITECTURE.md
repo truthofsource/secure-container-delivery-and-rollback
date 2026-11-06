@@ -16,7 +16,7 @@ flowchart TD
   Source[Reviewed commit] --> Build[Build and test]
   Build --> Scan[Dependency / image / IaC / secret scans]
   Scan --> Gate[Trusted policy gate]
-  Build --> Archive[(Immutable ZIP / digest)]
+  Build --> Archive[(Retained ZIP / digest)]
   Gate --> Select[Exact source and artifact selection]
   Archive --> Select
   Select --> NP[Nonproduction verification]
@@ -45,3 +45,7 @@ Review the caller matrix, identity permissions, durable state, concurrency, log 
 ## Included Terraform
 
 A shared-style ACR registry, keyless private release-archive storage with version protection, and an opt-in repository-scoped OIDC publisher. See [the code map, resource inventory and integration boundaries](../infra/README.md). This public root does not provision every box in the application diagram.
+
+## Implementation evidence
+
+[The platform-specific implementation](IMPLEMENTATION.md) records the real service boundaries and historical acceptance. Public adapters omit credentials and use fictional dependencies; a passing local test is not a live permission or network acceptance receipt.
