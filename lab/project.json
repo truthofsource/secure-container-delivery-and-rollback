@@ -16,5 +16,5 @@
     "This reference proves artifact/policy mechanics locally. Azure publication and original-build image provenance require separate acceptance.",
     "Source findings, container findings and live configuration findings are tracked separately; remaining findings are not silently suppressed."
   ],
-  "boundary": "Sanitized patterns from an operational platform; this screen shows local code with fictional records."
+  "boundary": "Engineering patterns from an operational platform; this screen shows local code with fictional records."
 }
