@@ -50,11 +50,11 @@ flowchart LR
 | --- | --- | --- |
 | Actual rollback guards | Bind exact source/artifact, expiring candidate, compatibility and live-state drift | [Source](reference/rollback_release.py) · [original selected tests](reference/test_rollback_release.py) |
 | Deterministic package builder | Sort paths and fix ZIP metadata so identical inputs produce identical bytes. | [View code](lab/domain.py) |
-| Selected-artifact policy gate | Reject modified bytes, wrong-source evidence, incomplete scans and blocking findings. | [View code](lab/domain.py) |
+| Release-file checks | Reject changed files, reports for another release, unfinished scans and findings that block release. | [View code](lab/domain.py) |
 | Content-addressed release archive | Retain packages and change a small atomic release pointer instead of rebuilding. | [View code](lab/domain.py) |
-| ACR and repository-specific publisher | Keep registry admin credentials Off and scope optional OIDC publishing to one repository. | [View code](infra/registry.tf) |
+| ACR and repository-specific publisher | Keep registry administrator passwords Off and limit optional GitHub publishing access to one image repository. | [View code](infra/registry.tf) |
 | Private artifact storage | Use keyless, versioned archive storage with deletion protection. | [View code](infra/storage.tf) |
-| Container example | Run the local demonstration as non-root in a digest-pinned Python image. | [View code](Dockerfile) |
+| Container example | Run the example with a lower-permission account in an exact, verified Python container build. | [View code](Dockerfile) |
 
 ## Proof It Works
 
@@ -181,7 +181,7 @@ See [strengths, weaknesses and tradeoffs](docs/SCALING.md) for the detailed deci
 | [Implementation walkthrough](docs/WALKTHROUGH.md) | Follow the processing path and code |
 | [Architecture](docs/ARCHITECTURE.md) | Understand service and identity boundaries |
 | [Terraform](infra/README.md) | Read the resource map, input examples and integration steps |
-| [Validation evidence](docs/VALIDATION.md) | Inspect dated checks and their limits |
+| [Validation evidence](docs/VALIDATION.md) | See the test dates, results and limits |
 | [Operations and troubleshooting](docs/OPERATIONS.md) | Diagnose failures and recover safely |
 | [Security and privacy](SECURITY.md) | Review access, secrets and publication controls |
 | [Scaling and tradeoffs](docs/SCALING.md) | Understand the costs of each design choice |

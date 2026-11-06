@@ -6,7 +6,7 @@ The production publisher promotes archived API/web packages selected by exact so
 
 The October 29 commissioning record describes a nonproduction prior-pair rehearsal and forward restoration, temporary runner cleanup and preserved paused services. It explicitly does not describe a production rollback, data restore, worker-image rollback or paid business transaction. This portfolio refresh performs none of those actions.
 
-The extracted guard code retains the historical schema-168 contract because that is what the selected implementation tested. It is not the platform's current schema number or a universal rollback policy. A later live incident must select its current reviewed ledger and compatible packages. Native required-reviewer setup was not supported by the repository plan; the commissioned path uses exact-account/candidate authorization. The unused native-reviewer helper is deliberately excluded here.
+The included checks keep the historical schema-168 rules used by that test. They are not the current database schema or a rule for every future rollback. A real incident needs the current reviewed release record and compatible packages. The GitHub plan did not support the built-in required-reviewer feature, so the implemented approval checks the exact account and release candidate. The unused built-in-reviewer helper is left out.
 
 Images are digest-pinned in the real delivery process. Registry/OIDC scope, scanner findings, signature/provenance checks and runtime health are separate evidence. This repository does not claim every remaining vulnerability was fixed or that the public fixture's policy receipt is trusted scanner evidence.
 
