@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "executed_at_utc": "2026-11-06T10:19:19.311118+00:00",
+  "python": "3.12.10",
+  "unit_tests": {
+    "passed": 12,
+    "failed": 0
+  },
+  "demonstration_checks": 6,
+  "browser": {
+    "project": "secure-container-delivery-and-rollback",
+    "desktop": true,
+    "mobile": true,
+    "rerun": true,
+    "tabs": true,
+    "externalOriginDenied": true,
+    "unknownAssetDenied": true,
+    "browserErrors": 0
+  },
+  "workflow_lint": "actionlint 1.7.12 passed",
+  "secret_scan": {
+    "tool": "Trivy 0.75.0",
+    "scope": "repository source; provider cache excluded",
+    "findings": 0
+  },
+  "source_hashes": {
+    "lab/__init__.py": "663de2ddd191126ed240630619821e327ee5645cb71ced52d43f3fb7780691e8",
+    "lab/__main__.py": "363b0004d94efbaa7a71de3eed75b8b687db0c361eb5b49e17202c4d432bcc59",
+    "lab/demo.py": "7c75d77c34711177b9e742cdaf5a08e6891bec79d363c14917f760c5b39c7f3c",
+    "lab/domain.py": "66fb77aab54d2a48e990df663a67a21b59467c9769d14904cac96ab3ff32d066",
+    "lab/project.json": "736cc5f055cebab8c1d80d722f455495e0e81b953d71f881596f827ebfd41767",
+    "lab/web/app.js": "3bdf7e85bd6c5229591cacaac6b5360edf402a3498af9491297a6451000693c3",
+    "lab/web/index.html": "35cc32683f882bd63f96504ac54907ba88c9eecaf3cecb92ef789bcb01f4529a",
+    "lab/web/style.css": "d69c9930ee870f702086a38793f7e4ba9fe42cad77e60eb15dc879a8f6921c3e",
+    "lab/workbench.py": "cc2889350fd182e10a74b1153e2c96ef93d5c295724f0ae281d757d1a2e546b5"
+  },
+  "container": {
+    "platform": "linux/arm64",
+    "non_root_user": "65532:65532",
+    "run": "passed",
+    "network": "none",
+    "filesystem": "read-only",
+    "capabilities": "none",
+    "vulnerability_scan": "not run for this demonstration image"
+  }
+}
