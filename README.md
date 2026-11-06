@@ -65,13 +65,38 @@ These are dated results for this reference implementation, not live Azure/AWS de
 
 The local test compares the promoted package against the original. Changed bytes and stale/incomplete evidence fail before publication.
 
+Run from the repository root:
+
+```bash
+python -B -m unittest discover -s tests -p test_domain.py -v
+```
+
+**What to look for:** The package tests reject changed bytes, wrong source, stale evidence and incomplete/blocked scans.
+
 ### 2. Rollback uses the retained prior package
 
 The demonstration re-verifies a previous archive and selects its digest. It does not rebuild the old source.
 
+Run from the repository root:
+
+```bash
+python -B -m lab demo
+```
+
+**What to look for:** The JSON records the current and retained previous package digests and the restored selection.
+
 ### 3. The container runs under restrictions
 
 The recorded Linux ARM64 smoke used a non-root user, no network, a read-only filesystem and dropped capabilities. This was a runtime test, not a vulnerability scan of that demonstration image.
+
+Run from the repository root:
+
+```bash
+docker build -t delivery-reference:local .
+docker run --rm --network none --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,noexec,nosuid,size=16m delivery-reference:local demo
+```
+
+**What to look for:** This reproduces the recorded Linux container smoke using a portable local tag. The run is non-root and network-isolated; it is not a vulnerability scan.
 
 ### 4. Visible results
 
@@ -90,6 +115,8 @@ Expected access denials are successful negative tests. Cloud permissions, networ
 State, saved Terraform plans, private inputs and credentials are excluded through [`.gitignore`](.gitignore). The existing validation workflow is manual-only and has no cloud deployment permission.
 
 ## Run It Locally
+
+The [command reference](docs/COMMANDS.md) includes prerequisites, Windows equivalents, focused checks and evidence notes.
 
 Requires Python 3.12 or newer. The default demonstration uses the Python standard library. Run inside a virtual environment:
 
@@ -140,6 +167,7 @@ See [strengths, weaknesses and tradeoffs](docs/SCALING.md) for the detailed deci
 
 | Guide | What you will find |
 | --- | --- |
+| [Command reference](docs/COMMANDS.md) | Copy the commands, understand their purpose and check expected results |
 | [Implementation walkthrough](docs/WALKTHROUGH.md) | Follow the processing path and code |
 | [Architecture](docs/ARCHITECTURE.md) | Understand service and identity boundaries |
 | [Terraform](infra/README.md) | Read the resource map, input examples and integration steps |
