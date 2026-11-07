@@ -2,7 +2,7 @@
 
 **Release the tested files and keep a verified previous version ready if something goes wrong.**
 
-[The problem](#the-business-problem) · [The solution](#the-solution) · [What was built](#what-was-built) · [Proof it works](#proof-it-works) · [Run it](#run-it-locally)
+[The problem](#the-business-problem) · [The solution](#the-solution) · [What was built](#what-was-built) · [Proof it works](#proof-it-works) · [Run it](#run-it-locally) · [Step by step](#step-by-step)
 
 ![Overview of the working demonstration](docs/images/01-overview.png)
 
@@ -28,6 +28,18 @@ This case study draws on a workforce/operations platform I designed and implemen
 ### Actual implementation code
 
 This repository now includes selected implementation source and original tests from the operational platform, rather than only a portable reference. Read [what was implemented and accepted](docs/IMPLEMENTATION.md), [the source map](docs/SOURCE-MAP.md) and the dated validation boundaries. Identifying configuration is replaced with examples; original private history and records are excluded.
+
+## Step by Step
+
+A short walkthrough of the process, with technical instructions and evidence limits in the sections below.
+
+1. **Build and check one version** — Select the reviewed source and build the release files once. Keep the security results tied to those exact files.
+
+2. **Retain the tested release** — Store the package with its fingerprint and source record. Preserve a verified previous release for possible recovery.
+
+3. **Promote the same files** — Verify the selected release in a test environment before promoting it. Use the retained package rather than creating a different build at the final step.
+
+4. **Verify or roll back deliberately** — Compare the running release with the intended version and investigate any mismatch. A rollback uses a reviewed retained package and must still satisfy compatibility and current-state checks.
 
 ## Architecture
 
