@@ -29,11 +29,25 @@ This case study draws on a workforce/operations platform I designed and implemen
 
 This repository now includes selected implementation source and original tests from the operational platform, rather than only a portable reference. Read [what was implemented and accepted](docs/IMPLEMENTATION.md), [the source map](docs/SOURCE-MAP.md) and the dated validation boundaries. Identifying configuration is replaced with examples; original private history and records are excluded.
 
+## Tools Used and What They Do
+
+| Tool or service | What it does | Where it fits |
+| --- | --- | --- |
+| GitHub Actions | Coordinate selected-source checks, publication and reviewed recovery stages. | Actual platform process; public reference CI is manual-only. |
+| GitHub CLI (gh) | Inspect exact workflow runs, retained artifacts and release metadata. | Operating utility; dispatch, publication and rollback remain separate actions. |
+| Docker and Azure Container Registry | Build/package worker software and retain selected images. | Actual container boundaries; image publication is separate from execution. |
+| Trivy, Checkov, TruffleHog and OWASP ZAP | Check dependencies/images, IaC, possible secrets and selected runtime access. | Separate scanner roles and evidence; the default local workflow does not run live scans. |
+| SHA-256 and release manifests | Bind retained packages and receipts to exact selected content. | Integrity/evidence utilities, not proof of every runtime behavior. |
+| Terraform and Azure CLI | Describe supporting access and inspect the intended target. | Scoped operating context, not automatic production rollback. |
+| Python | Exercise the public release/rollback decision model. | Local reference; no Azure publisher credentials or deployment adapter. |
+
+A retained ZIP, a successful build, a published package and a restored running release are different states. The public demonstration does not start an actual rollback.
+
 ## Step by Step
 
 A short walkthrough of the process, with technical instructions and evidence limits in the sections below.
 
-1. **Build and check one version** — Select the reviewed source and build the release files once. Keep the security results tied to those exact files.
+1. **Build and check one version (GitHub Actions and scanner checks)** — Select the reviewed source and build the release files once. Keep the security results tied to those exact files.
 
 2. **Retain the tested release** — Store the package with its fingerprint and source record. Preserve a verified previous release for possible recovery.
 
