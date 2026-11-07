@@ -185,6 +185,10 @@ See [strengths, weaknesses and tradeoffs](docs/SCALING.md) for the detailed deci
 - OIDC and repository-specific publishing
 - Verified rollback and release traceability
 
+## Troubleshooting Lessons
+
+Moving tests to another runner did not fix exhausted artifact storage. Recovery preserved verified packages and their dependencies before removing selected older copies. [Read the incident, evidence and verification](docs/LESSONS-LEARNED.md).
+
 ## Project Guides
 
 | Guide | What you will find |
