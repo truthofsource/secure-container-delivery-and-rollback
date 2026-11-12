@@ -8,7 +8,11 @@
 
 ## The Business Problem
 
-A green build did not show exactly which application package or container would reach production. Rebuilding during release could change the files, and an old branch was not a dependable recovery package. Security reports also needed to match the version being released.
+The platform supports onboarding, timesheets, employee documents and payroll-related work. A release that behaves differently from the version tested can disrupt those services even when the build itself succeeded. Rebuilding at the final deployment step makes it harder to establish exactly which files staff are using.
+
+If a release causes trouble, an old source branch is insufficient as a recovery plan: the team also needs the previous built files, matching evidence and a compatibility check against current settings and data. Security reports for a different version do not establish whether the selected release is acceptable.
+
+The business need was a traceable release path and a prepared return path, with the tested package preserved through promotion and a verified earlier package available for a deliberate rollback.
 
 ## The Solution
 
